@@ -3,6 +3,8 @@ package com.todolist.todolist.endpoint;
 
 import com.todolist.todolist.entitity.Task;
 import com.todolist.todolist.service.TodoListService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/todolist")
+@Api(value = "Todolist", description = "Todolist")
 public class TodolistEndpoint {
 
     @Autowired

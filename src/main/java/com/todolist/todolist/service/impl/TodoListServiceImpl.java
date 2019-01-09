@@ -38,11 +38,19 @@ public class TodoListServiceImpl implements TodoListService {
     }
 
     public List<Task> updateTasks(List<Task> tasks) {
-        return StreamSupport.stream(taskRepository.saveAll(tasks).spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream(taskRepository.saveAll(tasks.stream().map(t -> updateTask(t)).collect(Collectors.toList())).spliterator(), false).collect(Collectors.toList());
+    }
+
+    public Task updateTask(Task task){
+        Task entity = taskRepository.findById(task.getId()).orElseThrow(() -> new RuntimeException("Não existe essa tarefa."));
+        entity.setDone(task.isDone());
+        entity.setTitle(task.getTitle());
+        entity.setDescription(task.getDescription());
+        entity.setIndex(task.getIndex());
+        return entity;
     }
 
     public Task createTask(Task task) {
-        task.setCreationDate(new Date());
         return taskRepository.save(task);
     }
 

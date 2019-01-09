@@ -1,22 +1,30 @@
 package com.todolist.todolist.entitity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "task")
+@EntityListeners(AuditingEntityListener.class)
 public class Task {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String title;
     String description;
     boolean done;
+    @Column(name = "index_task")
     int index;
+    @CreatedDate
     @Column(name = "creation_date")
     Date creationDate;
     @Column(name = "edition_date")
+    @LastModifiedDate
     Date editionDate;
     @Column(name = "conclusion_date")
     Date conclusionDate;
